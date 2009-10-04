@@ -3,6 +3,8 @@
 
 require 'rubygems'
 require 'highline/import'
+
+require 'fileutils'
 require 'net/http'
 require 'yaml'
 
@@ -39,3 +41,4 @@ config['include'] = ''
 path = ask('Config path: ') { |q| q.default = "./#{config['twitter']}.yml" }
 
 File.open(path, 'w') { |io| io << config.to_yaml }
+FileUtils.chmod 0700, path
