@@ -10,6 +10,11 @@ if '--help' == ARGV.first or '-h' == ARGV.first
   exit
 end
 
+trap('INT') do
+  puts
+  exit
+end
+
 HighLine.track_eof = false
 
 email    = ask('VK e-mail: ')
