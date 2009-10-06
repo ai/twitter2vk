@@ -34,6 +34,16 @@ def repost?(text, config)
   true
 end
 
+def load_vk_activityhash(session)
+  request = open('http://vk.com/profile.php', 'Cookie' => "remixsid=#{session}")
+  profile = request.read.to_s
+  profile.match(/<input type='hidden' id='activityhash' value='([^']+)'>/)[1]
+end
+
+def set_status_to_vk(text, session, activityhash)
+  
+end
+
 config = YAML.load_file(ARGV.first)
 
 last_message = if File.exists? config['last_message']
@@ -46,9 +56,11 @@ request = open('http://twitter.com/statuses/user_timeline/' +
 statuses = JSON.parse(request.read.to_s)
 
 unless statuses.empty?
+  activityhash = load_vk_activityhash(config['vk_session'])
+  
   statuses.each do |status|
     next unless repost? status['text'], config
-    
+    set_status_to_vk(status['text'], config['vk_session'], activityhash)
   end
   
   File.open(config['last_message'], 'w') { |io| io << statuses.first['id'] }
