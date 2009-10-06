@@ -40,6 +40,9 @@ config['exclude'] = ['#novk', /@\w/]
 config['include'] = nil
 
 path = ask('Config path: ') { |q| q.default = "./#{config['twitter']}.yml" }
+config['last_message'] = ask('File with last message ID: ') do |q|
+  q.default = "./#{config['twitter']}_last_message"
+end
 
 File.open(path, 'w') { |io| io << config.to_yaml }
 FileUtils.chmod 0700, path
