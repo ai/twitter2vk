@@ -3,4 +3,5 @@ nbproject
 *~
 
 *.yml
+!i18n/*
 *_last_message

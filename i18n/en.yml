@@ -1,0 +1,10 @@
+help: Create config and cron task to repost Twitter statuses to VK.com.
+vk:
+  email: 'VK e-mail: '
+  password: 'VK password: '
+  error: 'Error: VK e-mail or password is incorrect.'
+twitter: 'Twitter name: '
+config: 'Config path: '
+last_message: 'File with last message ID: '
+period: 'Check period in minutes: '
+success: Config and cron task are created.

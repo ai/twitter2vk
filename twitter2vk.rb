@@ -3,6 +3,7 @@
 
 require 'rubygems'
 require 'highline/import'
+require 'r18n-desktop'
 
 require 'fileutils'
 require 'net/http'
@@ -14,8 +15,10 @@ trap('INT') do
   exit
 end
 
+i18n = R18n.from_env(File.join(File.dirname(__FILE__), 'i18n'))
+
 if '--help' == ARGV.first or '-h' == ARGV.first
-  say 'Create config and cron task to repost Twitter statuses to VK.com.'
+  say i18n.help
   exit
 end
 
@@ -23,24 +26,24 @@ config = {}
 
 HighLine.track_eof = false
 
-email    = ask('VK e-mail: ')
-password = ask('VK password: ') { |q| q.echo = false }
+email    = ask(i18n.vk.email)
+password = ask(i18n.vk.password) { |q| q.echo = false }
 
 resource = Net::HTTP.post_form(URI.parse('http://login.vk.com/'), 
     { 'email' => email, 'pass' => password, 'vk' => '', 'act' => 'login' })
 if resource.body.empty?
-  say 'Error: VK e-mail or password is incorrect.'
+  say i18n.vk.error
   exit
 end
 
 config['vk_session'] = resource.body.match(/value='([a-z0-9]+)'/)[1]
-config['twitter']    = ask('Twitter name: ')
+config['twitter']    = ask(i18n.twitter)
 
 config['exclude'] = ['#novk', /@\w/]
 config['include'] = nil
 
-path = ask('Config path: ') { |q| q.default = "./#{config['twitter']}.yml" }
-config['last_message'] = ask('File with last message ID: ') do |q|
+path = ask(i18n.config) { |q| q.default = "./#{config['twitter']}.yml" }
+config['last_message'] = ask(i18n.last_message) do |q|
   q.default = "./#{config['twitter']}_last_message"
 end
 
@@ -48,7 +51,7 @@ File.open(path, 'w') { |io| io << config.to_yaml }
 FileUtils.chmod 0700, path
 
 reposter = Pathname.new(__FILE__).dirname.expand_path + 'twitter2vk_reposter.rb'
-period = ask('Check period in minutes: ') { |q| q.default = 5 }
+period = ask(i18n.period) { |q| q.default = 5 }
 
 `echo "#{period} * * * * #{reposter} #{File.expand_path(path)}" | crontab -`
-say 'Config and cron task are created.'
+say i18n.success
