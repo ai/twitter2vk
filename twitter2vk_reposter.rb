@@ -14,6 +14,26 @@ if ARGV.empty? or '--help' == ARGV.first or '-h' == ARGV.first
   exit
 end
 
+def check(text, pattern)
+  if pattern.is_a? String
+    text.index(pattern)
+  elsif pattern.is_a? Regexp
+    text =~ pattern
+  end
+end
+
+def repost?(text, config)
+  Array(config['exclude']).each do |pattern|
+    if check(text, pattern)
+      Array(config['include']).each do |pattern|
+        return true if check(text, pattern)
+      end
+      return false
+    end
+  end
+  true
+end
+
 config = YAML.load_file(ARGV.first)
 
 last_message = if File.exists? config['last_message']
@@ -27,6 +47,7 @@ statuses = JSON.parse(request.read.to_s)
 
 unless statuses.empty?
   statuses.each do |status|
+    next unless repost? status['text'], config
     
   end
   
