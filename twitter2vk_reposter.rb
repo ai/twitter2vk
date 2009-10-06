@@ -6,6 +6,7 @@ require 'json'
 
 require 'yaml'
 require 'open-uri'
+require 'net/http'
 
 if ARGV.empty? or '--help' == ARGV.first or '-h' == ARGV.first
   puts 'Usage: twitter2vk_reposter.rb CONFIG'
@@ -41,7 +42,12 @@ def load_vk_activityhash(session)
 end
 
 def set_status_to_vk(text, session, activityhash)
+  url = URI.parse('http://vk.com/profile.php')
+  request = Net::HTTP::Post.new(url.path)
+  request.set_form_data({'setactivity' => text, 'activityhash' => activityhash})
+  request['cookie'] = "remixsid=#{session}"
   
+  Net::HTTP.new(url.host, url.port).start { |http| http.request(request) }
 end
 
 config = YAML.load_file(ARGV.first)
