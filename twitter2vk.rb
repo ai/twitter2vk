@@ -54,5 +54,12 @@ FileUtils.chmod 0700, path
 
 period = ask(i18n.period) { |q| q.default = 5 }
 
-`echo "#{period} * * * * twitter2vk_reposter #{path}" | crontab -`
-say i18n.success
+task = "#{period} * * * * twitter2vk_reposter #{path}"
+
+if agree(i18n.cron) { |q| q.default = 'yes' }
+  `echo '#{task}' | crontab -`
+  say i18n.success.cron
+else
+  say i18n.success.print(task)
+end
+
