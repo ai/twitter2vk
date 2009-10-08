@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Console tool to create new config.
+# Console tool to create new config and cron task.
 
 require 'rubygems'
 require 'highline/import'
@@ -43,6 +43,8 @@ config['exclude'] = ['#novk', /@\w/]
 config['include'] = nil
 
 path = ask(i18n.config) { |q| q.default = "./#{config['twitter']}.yml" }
+path = File.expand_path(path)
+
 config['last_message'] = ask(i18n.last_message) do |q|
   q.default = "./#{config['twitter']}_last_message"
 end
@@ -50,8 +52,7 @@ end
 File.open(path, 'w') { |io| io << config.to_yaml }
 FileUtils.chmod 0700, path
 
-reposter = Pathname.new(__FILE__).dirname.expand_path + 'twitter2vk_reposter.rb'
 period = ask(i18n.period) { |q| q.default = 5 }
 
-`echo "#{period} * * * * #{reposter} #{File.expand_path(path)}" | crontab -`
+`echo "#{period} * * * * twitter2vk_reposter #{path}" | crontab -`
 say i18n.success
