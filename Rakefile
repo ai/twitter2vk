@@ -13,7 +13,7 @@ end
 installer_spec = Gem::Specification.new do |spec|
   spec.name = 'twitter2vk'
   spec.description = <<-EOF
-    Console tool to create new config and cron task to atomatic repost Twitter
+    Console tool to create new config and cron task to automatic repost Twitter
     statuses to VK (В Контакте).
   EOF
   
@@ -25,6 +25,7 @@ installer_spec = Gem::Specification.new do |spec|
     'bin/twitter2vk',
     'bin/i18n/ru.yml',
     'bin/i18n/en.yml',
+    'README.markdown',
     'COPYING']
   spec.executable = 'twitter2vk'
   
@@ -40,6 +41,7 @@ responser_spec = Gem::Specification.new do |spec|
   
   spec.files = FileList[
     'bin/twitter2vk_reposter',
+    'README.markdown',
     'COPYING']
   spec.executable = 'twitter2vk_reposter'
   
