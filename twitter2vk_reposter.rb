@@ -67,6 +67,7 @@ unless statuses.empty?
   statuses.each do |status|
     next unless repost? status['text'], config
     set_status_to_vk(status['text'], config['vk_session'], activityhash)
+    sleep 10 unless statuses.last == status
   end
   
   File.open(config['last_message'], 'w') { |io| io << statuses.first['id'] }
