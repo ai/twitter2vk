@@ -13,6 +13,8 @@ You may install on server only twitter2vk_reposter package and create config
 on home computer (don’t remember to add cron task). Or you can uninstall
 twitter2vk after you create config.
 
+You can follow author @andrey_sitnik to receive last updates info.
+
 ### Install
 1. Install Ruby and Rubygems. For example, on Ubuntu:
    
@@ -49,6 +51,9 @@ Config is a YAML files with options:
 Вы можете установить на сервер только пакет twitter2vk_reposter и создать
 настройки на домашнем компьютере (не забудьте добавить задание cron). Или можете
 удалить пакет twitter2vk, после настройки.
+
+Вы можете последовать за автором @andrey_sitnik, чтобы получать информацию
+о последних обновлениях.
 
 ### Установка
 1. Установите Ruby и Rubygems. Например, для Ubuntu:
