@@ -7,7 +7,8 @@ separated package CLI tool to create config and add cron task.
 Warning: config contain session ID for VK, which can be used to get full access.
 Make sure that outsiders don’t have access to this file.
 
-By default, reply and statuses with #novk willn’t be reposted to VK.
+By default, reply and statuses with #novk willn’t be reposted to VK (but you may
+use #vk to repost any status).
 
 You may install on server only twitter2vk_reposter package and create config
 on home computer (don’t remember to add cron task). Or you can uninstall
@@ -46,7 +47,8 @@ Config is a YAML files with options:
 Внимание: настройки содержат ID сессии во В Контакте, с помощью которого можно
 получить полный доступ. Убедитесь, что посторонние не имеют к файлу доступ.
 
-По умолчанию, ответы и статусы с #novk не будут публиковаться во В Контакте.
+По умолчанию, ответы и статусы с #novk не будут публиковаться во В Контакте (но
+можно использовать #vk для перепубликации любого статуса).
 
 Вы можете установить на сервер только пакет twitter2vk_reposter и создать
 настройки на домашнем компьютере (не забудьте добавить задание cron). Или можете
