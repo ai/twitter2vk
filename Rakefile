@@ -57,7 +57,7 @@ task :copy_bin => 'bin' do
 end
 
 task :clobber_bin do
-  rm_r 'bin'
+  rm_r 'bin' if File.exists? 'bin'
 end
 
 directory 'pkg'
@@ -77,5 +77,5 @@ task :gem => [installer_spec.file_name, responser_spec.file_name, :clobber_bin]
 
 desc 'Delete all temporal files'
 task :clobber do
-  rm_r 'pkg'
+  rm_r 'pkg' if File.exists? 'pkg'
 end
