@@ -18,15 +18,15 @@ You can follow author @andrey_sitnik to receive last updates info.
 ### Install
 1. Install Ruby and Rubygems. For example, on Ubuntu:
    
-       sudo apt-get install rubygems
+        sudo apt-get install rubygems
    
 2. Install twitter2vk gem:
    
-       sudo gem install twitter2vk
+        sudo gem install twitter2vk
    
 3. Run master to create config and add crom task:
    
-       twitter2vk
+        twitter2vk
 
 ### Config
 Config is a YAML files with options:
@@ -58,15 +58,15 @@ Config is a YAML files with options:
 ### Установка
 1. Установите Ruby и Rubygems. Например, для Ubuntu:
    
-       sudo apt-get install rubygems
+        sudo apt-get install rubygems
    
 2. Установите gem twitter2vk:
    
-       sudo gem install twitter2vk
+        sudo gem install twitter2vk
    
 3. Запустите мастер, чтобы создать настройки и добавить задание к cron:
    
-       twitter2vk
+        twitter2vk
 
 ### Настройки
 Настройки хранятся в YAML файле с полями:
