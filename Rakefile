@@ -26,6 +26,7 @@ installer_spec = Gem::Specification.new do |spec|
     'bin/i18n/ru.yml',
     'bin/i18n/en.yml',
     'README.markdown',
+    'ChangeLog',
     'COPYING']
   spec.executable = 'twitter2vk'
   
@@ -42,6 +43,7 @@ responser_spec = Gem::Specification.new do |spec|
   spec.files = FileList[
     'bin/twitter2vk_reposter',
     'README.markdown',
+    'ChangeLog',
     'COPYING']
   spec.executable = 'twitter2vk_reposter'
   
