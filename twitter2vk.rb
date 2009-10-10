@@ -54,7 +54,7 @@ FileUtils.chmod 0700, path
 
 period = ask(i18n.period) { |q| q.default = 5 }
 
-task = "#{period} * * * * twitter2vk_reposter #{path}"
+task = "*/#{period} * * * * twitter2vk_reposter #{path}"
 
 if agree(i18n.cron) { |q| q.default = 'yes' }
   tasks = `crontab -l`
