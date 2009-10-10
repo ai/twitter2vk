@@ -1,0 +1,8 @@
+== 0.1.1 (Лапша)
+* Fix reply regexp in default exclude.
+* Fix cron time format.
+* Don't delete exists crontab on add new task.
+* Fix gem dependencies.
+
+== 0.1 (Сервелат)
+* First release.
