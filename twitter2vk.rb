@@ -55,11 +55,15 @@ FileUtils.chmod 0700, path
 
 period = ask(i18n.period) { |q| q.default = 5 }
 
-task = "*/#{period} * * * * twitter2vk_reposter #{path}"
+task = "*/#{period} *  *   *   *      twitter2vk_reposter #{path}"
 
 if agree(i18n.cron) { |q| q.default = 'yes' }
   tasks = `crontab -l`
-  tasks << "\n" if tasks[-1..-1] != "\n"
+  if tasks.empty?
+    tasks << "# m h  dom mon dow   command\n"
+  elsif tasks[-1..-1] != "\n"
+    tasks << "\n"
+  end
   tasks << task
   `echo '#{tasks}' | crontab -`
   say i18n.success.cron
