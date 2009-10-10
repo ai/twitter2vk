@@ -57,7 +57,10 @@ period = ask(i18n.period) { |q| q.default = 5 }
 task = "#{period} * * * * twitter2vk_reposter #{path}"
 
 if agree(i18n.cron) { |q| q.default = 'yes' }
-  `echo '#{task}' | crontab -`
+  tasks = `crontab -l`
+  tasks << "\n" if tasks[-1..-1] != "\n"
+  tasks << task
+  `echo '#{tasks}' | crontab -`
   say i18n.success.cron
 else
   say i18n.success.print(task)
