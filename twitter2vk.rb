@@ -48,7 +48,7 @@ path = File.expand_path(path)
 config['last_message'] = ask(i18n.last_message) do |q|
   q.default = "./#{config['twitter']}_last_message"
 end
-config['last_message'] = File.expand_path(path)
+config['last_message'] = File.expand_path(config['last_message'])
 
 File.open(path, 'w') { |io| io << config.to_yaml }
 FileUtils.chmod 0700, path
