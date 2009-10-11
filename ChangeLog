@@ -1,3 +1,8 @@
+== 0.1.2 (Лаваш)
+* Fix installer: expand all paths in config.
+* Fix json dependency in responser gem.
+* Add #vk to include in installer by default.
+
 == 0.1.1 (Лапша)
 * Fix reply regexp in default exclude.
 * Fix cron time format.
