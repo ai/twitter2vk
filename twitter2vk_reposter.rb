@@ -77,6 +77,7 @@ request = open('http://twitter.com/statuses/user_timeline/' +
                "#{config['twitter']}.json?#{query}")
 statuses = JSON.parse(request.read.to_s)
 
+statuses.delete statuses.last
 unless statuses.empty?
   activityhash = load_vk_activityhash(config['vk_session'])
   
