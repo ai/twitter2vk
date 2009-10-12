@@ -39,7 +39,7 @@ end
 config['vk_session'] = resource.body.match(/value='([a-z0-9]+)'/)[1]
 config['twitter']    = ask(i18n.twitter)
 
-config['exclude'] = ['#novk', /^@\w/]
+config['exclude'] = ['#novk', :reply]
 config['include'] = ['#vk']
 
 path = ask(i18n.config) { |q| q.default = "./#{config['twitter']}.yml" }

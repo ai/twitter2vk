@@ -16,6 +16,8 @@ if ARGV.empty? or '--help' == ARGV.first or '-h' == ARGV.first
 end
 
 def check(text, pattern)
+  pattern = /^@\w/ if :reply == pattern
+  
   if pattern.is_a? String
     text.index(pattern)
   elsif pattern.is_a? Regexp

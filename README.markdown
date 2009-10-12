@@ -35,6 +35,7 @@ Config is a YAML files with options:
 * vk_session – session ID to access to VK.
 * twitter – your Twitter login.
 * exclude – list of text or regexp patterns to exclude statuses from your VK.
+  Code `:reply` will exclude your replies to another Twitter users.
 * include – list of text or regexp patterns to repost excluded statuses.
 * last_message – file to contain ID of last reposted message.
 
@@ -76,6 +77,6 @@ Config is a YAML files with options:
 * vk_session – ID сессии для доступка к В Контакте.
 * twitter — логин от вашего Twitter’а.
 * exclude — список слов или regexp’ов для статусов, которые не нужно публиковать
-  во В Контакте.
+  во В Контакте. Код `:reply` исключ ваши ответы другим пользователя Twitter.
 * include — список слов или regexp’ов для отмены exclude.
 * last_message — файл, чтобы хранить ID последнего полученного сообщения.
