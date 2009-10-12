@@ -32,12 +32,14 @@ You can follow author @andrey_sitnik to receive last updates info.
 ### Config
 Config is a YAML files with options:
 
-* vk_session – session ID to access to VK.
-* twitter – your Twitter login.
-* exclude – list of text or regexp patterns to exclude statuses from your VK.
+* `vk_session` – session ID to access to VK.
+* `twitter` – your Twitter login.
+* `exclude` – list of text or regexp patterns to exclude statuses from your VK.
   Code `:reply` will exclude your replies to another Twitter users.
-* include – list of text or regexp patterns to repost excluded statuses.
-* last_message – file to contain ID of last reposted message.
+* `include` – list of text or regexp patterns to repost excluded statuses.
+* `format` – format reposted status. `%status%` will be replaced by status text,
+  `%url%` by status link on Twitter.
+* `last_message` – file to contain ID of last reposted message.
 
 ## Russian
 
@@ -74,9 +76,12 @@ Config is a YAML files with options:
 ### Настройки
 Настройки хранятся в YAML файле с полями:
 
-* vk_session – ID сессии для доступка к В Контакте.
-* twitter — логин от вашего Twitter’а.
-* exclude — список слов или regexp’ов для статусов, которые не нужно публиковать
-  во В Контакте. Код `:reply` исключ ваши ответы другим пользователя Twitter.
-* include — список слов или regexp’ов для отмены exclude.
-* last_message — файл, чтобы хранить ID последнего полученного сообщения.
+* `vk_session` – ID сессии для доступка к В Контакте.
+* `twitter` — логин от вашего Twitter’а.
+* `exclude` — список слов или regexp’ов статусов, которые не нужно публиковать
+  во В Контакте. Код `:reply` исключ ваши ответы другим пользователя
+  Twitter.
+* `include` — список слов или regexp’ов для отмены exclude.
+* `format` — вид статуса во В Контакте. `%status%` будет заменен на текст
+  статуса, `%url%` — на ссылку на статус в Twitter’е.
+* `last_message` — файл, чтобы хранить ID последнего полученного сообщения.

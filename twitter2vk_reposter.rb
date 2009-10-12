@@ -43,6 +43,14 @@ def load_vk_activityhash(session)
   profile.match(/<input type='hidden' id='activityhash' value='([^']+)'>/)[1]
 end
 
+def format_status(status, format)
+  format = '%status%' unless format
+  text = format.gsub('%status%', status['text']).gsub('%url%',
+      "http://twitter.com/#{status['user']['screen_name']}/#{status['id']}")
+  text = text[0...159] + '…' if text.length > 160
+  text
+end
+
 def set_status_to_vk(text, session, activityhash)
   url = URI.parse('http://vk.com/profile.php')
   request = Net::HTTP::Post.new(url.path)
@@ -67,8 +75,9 @@ unless statuses.empty?
   activityhash = load_vk_activityhash(config['vk_session'])
   
   statuses.each do |status|
-    next unless repost? status['text'], config
-    set_status_to_vk(status['text'], config['vk_session'], activityhash)
+    text = format_status(status, config['format'])
+    next unless repost? text, config
+    set_status_to_vk(text, config['vk_session'], activityhash)
     sleep 10 unless statuses.last == status
   end
   

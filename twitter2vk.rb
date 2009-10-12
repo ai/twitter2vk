@@ -41,6 +41,7 @@ config['twitter']    = ask(i18n.twitter)
 
 config['exclude'] = ['#novk', :reply]
 config['include'] = ['#vk']
+config['format'] = '%status%'
 
 path = ask(i18n.config) { |q| q.default = "./#{config['twitter']}.yml" }
 path = File.expand_path(path)
