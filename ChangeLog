@@ -1,3 +1,8 @@
+== 0.2 (Желе)
+* Add format to config to change reposted status view.
+* Add replace to config to change reposted status text.
+* Fix installer: expand path to reposter.
+
 == 0.1.2 (Лаваш)
 * Fix installer: expand all paths in config.
 * Fix json dependency in responser gem.
