@@ -43,10 +43,16 @@ def load_vk_activityhash(session)
   profile.match(/<input type='hidden' id='activityhash' value='([^']+)'>/)[1]
 end
 
-def format_status(status, format)
-  format = '%status%' unless format
+def format_status(status, config)
+  format = config['format'] || '%status%'
   text = format.gsub('%status%', status['text']).gsub('%url%',
-      "http://twitter.com/#{status['user']['screen_name']}/#{status['id']}")
+      "twitter.com/#{status['user']['screen_name']}/#{status['id']}")
+  
+  Array(config['replace']).each do |replace|
+    replace = [/@([a-zA-Z0-9_]+)/, 'twitter.com/\\1'] if :user_to_url == replace
+    text.gsub!(replace[0], replace[1])
+  end
+  
   text = text[0...159] + '…' if text.length > 160
   text
 end
@@ -75,7 +81,7 @@ unless statuses.empty?
   activityhash = load_vk_activityhash(config['vk_session'])
   
   statuses.each do |status|
-    text = format_status(status, config['format'])
+    text = format_status(status, config)
     next unless repost? text, config
     set_status_to_vk(text, config['vk_session'], activityhash)
     sleep 10 unless statuses.last == status

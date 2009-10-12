@@ -39,6 +39,8 @@ Config is a YAML files with options:
 * `include` – list of text or regexp patterns to repost excluded statuses.
 * `format` – format reposted status. `%status%` will be replaced by status text,
   `%url%` by status link on Twitter.
+* `replace` – list of array with 2 elements to replace text in status. Code
+  `:user_to_url` will replace user name to his Twitter link.
 * `last_message` – file to contain ID of last reposted message.
 
 ## Russian
@@ -84,4 +86,6 @@ Config is a YAML files with options:
 * `include` — список слов или regexp’ов для отмены exclude.
 * `format` — вид статуса во В Контакте. `%status%` будет заменен на текст
   статуса, `%url%` — на ссылку на статус в Twitter’е.
+* `replace` — список массивов из двух элементов для замены текста в статусе. Код
+  `:user_to_url` заменит имена пользователей на ссылку на их Twitter.
 * `last_message` — файл, чтобы хранить ID последнего полученного сообщения.
