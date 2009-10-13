@@ -1,3 +1,6 @@
+== 0.2.1 (Оливье)
+* Fix UTF-8 support.
+
 == 0.2 (Желе)
 * Add format to config to change reposted status view.
 * Add replace to config to change reposted status text.
