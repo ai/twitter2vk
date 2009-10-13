@@ -40,6 +40,7 @@ responser_spec = Gem::Specification.new do |spec|
     Install twitter2vk to create config and cron task for it.
   EOF
   
+  spec.add_dependency 'activesupport'
   spec.add_dependency 'json'
   
   spec.files = FileList[

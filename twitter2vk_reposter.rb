@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
 # Check new Twitter statuses and repost it to VK.
 
+$KCODE = 'u'
+
 require 'rubygems'
 require 'json'
+require 'activesupport'
 
 require 'yaml'
 require 'open-uri'
@@ -53,8 +56,9 @@ def format_status(status, config)
     text.gsub!(replace[0], replace[1])
   end
   
+  text = text.mb_chars
   text = text[0...159] + '…' if text.length > 160
-  text
+  text.to_s
 end
 
 def set_status_to_vk(text, session, activityhash)
