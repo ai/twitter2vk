@@ -39,13 +39,17 @@ end
 config['vk_session'] = resource.body.match(/value='([a-z0-9]+)'/)[1]
 config['twitter']    = ask(i18n.twitter)
 
-config['exclude'] = ['#novk', :reply]
-config['include'] = ['#vk']
-config['format'] = '%status%'
-config['replace'] = []
-
 path = ask(i18n.config) { |q| q.default = "./#{config['twitter']}.yml" }
 path = File.expand_path(path)
+
+if File.exists? path
+  (config = YAML.load_file(path).merge(config)) rescue puts i18n.update_error
+end
+
+config['exclude'] = ['#novk', :reply] unless config.has_key? 'exclude'
+config['include'] = ['#vk']           unless config.has_key? 'include'
+config['replace'] = []                unless config.has_key? 'replace'
+config['format']  = '%status%'        unless config.has_key? 'format'
 
 config['last_message'] = ask(i18n.last_message) do |q|
   q.default = "./#{config['twitter']}_last_message"

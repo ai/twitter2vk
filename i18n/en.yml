@@ -5,6 +5,7 @@ vk:
   error: 'Error: VK e-mail or password is incorrect.'
 twitter: 'Twitter name: '
 config: 'Config path: '
+update_error: Overwrite config, because previous version can be loaded.
 last_message: 'File with last message ID: '
 period: 'Check period in minutes: '
 cron: Install cron task?
