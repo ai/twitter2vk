@@ -1,3 +1,6 @@
+== 0.2.3 (Шоколад)
+* Fix installer to use new VK API.
+
 == 0.2.2 (Багет)
 * Installer can update previous config.
 
