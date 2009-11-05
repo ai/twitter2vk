@@ -1,6 +1,6 @@
 require 'rubygems'
 
-PKG_VERSION = '0.2.3'
+PKG_VERSION = '0.2.4'
 
 def common_spec(spec)
   spec.version = PKG_VERSION
