@@ -84,12 +84,14 @@ statuses = JSON.parse(request.read.to_s)
 unless statuses.empty?
   activityhash = load_vk_activityhash(config['vk_session'])
   
-  statuses.each do |status|
+  last_message_id = nil
+  statuses.reverse.each do |status|
     text = format_status(status, config)
+    last_message_id = status['id']
     next unless repost? text, config
     set_status_to_vk(text, config['vk_session'], activityhash)
-    sleep 10 unless statuses.last == status
+    break
   end
   
-  File.open(config['last_message'], 'w') { |io| io << statuses.first['id'] }
+  File.open(config['last_message'], 'w') { |io| io << last_message_id }
 end
