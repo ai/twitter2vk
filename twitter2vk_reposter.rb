@@ -5,7 +5,7 @@ $KCODE = 'u'
 
 require 'rubygems'
 require 'json'
-require 'activesupport'
+require 'active_support'
 
 require 'yaml'
 require 'open-uri'
