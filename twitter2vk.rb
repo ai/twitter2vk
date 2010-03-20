@@ -5,6 +5,7 @@ require 'rubygems'
 require 'highline/import'
 require 'r18n-desktop'
 require 'active_support'
+require 'rvk'
 
 require 'fileutils'
 require 'net/http'
@@ -30,14 +31,14 @@ HighLine.track_eof = false
 email    = ask(i18n.vk.email)
 password = ask(i18n.vk.password) { |q| q.echo = false }
 
-resource = Net::HTTP.post_form(URI.parse('http://login.vk.com/'), 
-    { 'email' => email, 'pass' => password, 'vk' => '', 'act' => 'login' })
-if resource.body.empty?
+begin
+  vk = Vkontakte::User.new(email, password)
+rescue Vkontakte::VkontakteError => e
   say i18n.vk.error
   exit
 end
 
-config['vk_session'] = resource.body.match(/id='s' value='([a-z0-9]+)'/)[1]
+config['vk_session'] = vk.session
 config['twitter']    = ask(i18n.twitter)
 
 path = ask(i18n.config) { |q| q.default = "./#{config['twitter']}.yml" }

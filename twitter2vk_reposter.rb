@@ -6,6 +6,7 @@ $KCODE = 'u'
 require 'rubygems'
 require 'json'
 require 'active_support'
+require 'rvk'
 
 require 'yaml'
 require 'open-uri'
@@ -40,12 +41,6 @@ def repost?(text, config)
   true
 end
 
-def load_vk_activityhash(session)
-  request = open('http://vk.com/profile.php', 'Cookie' => "remixsid=#{session}")
-  profile = request.read.to_s
-  profile.match(/<input type='hidden' id='activityhash' value='([^']+)'>/)[1]
-end
-
 def format_status(status, config)
   format = config['format'] || '%status%'
   text = format.gsub('%status%', status['text']).gsub('%url%',
@@ -61,20 +56,12 @@ def format_status(status, config)
   text.to_s
 end
 
-def set_status_to_vk(text, session, activityhash)
-  url = URI.parse('http://vk.com/profile.php')
-  request = Net::HTTP::Post.new(url.path)
-  request.set_form_data({'setactivity' => text, 'activityhash' => activityhash})
-  request['cookie'] = "remixsid=#{session}"
-  
-  Net::HTTP.new(url.host, url.port).start { |http| http.request(request) }
-end
-
 config = YAML.load_file(ARGV.first)
 
 last_message = if File.exists? config['last_message']
   File.read(config['last_message']).strip
 end
+
 
 query = last_message ? "since_id=#{last_message}" : 'count=1'
 request = open('http://twitter.com/statuses/user_timeline/' +
@@ -82,14 +69,14 @@ request = open('http://twitter.com/statuses/user_timeline/' +
 statuses = JSON.parse(request.read.to_s)
 
 unless statuses.empty?
-  activityhash = load_vk_activityhash(config['vk_session'])
+  vk = Vkontakte::User.new(config['vk_session'])
   
   last_message_id = nil
   statuses.reverse.each do |status|
     text = format_status(status, config)
     last_message_id = status['id']
     next unless repost? text, config
-    set_status_to_vk(text, config['vk_session'], activityhash)
+    vk.set_status(text)
     break
   end
   

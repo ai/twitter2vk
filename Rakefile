@@ -18,7 +18,9 @@ installer_spec = Gem::Specification.new do |spec|
   EOF
   
   spec.add_dependency 'twitter2vk_reposter', "= #{PKG_VERSION}"
+  spec.add_dependency 'activesupport'
   spec.add_dependency 'highline'
+  spec.add_dependency 'rvk'
   spec.add_dependency 'r18n-desktop'
   
   spec.files = FileList[
@@ -42,6 +44,7 @@ responser_spec = Gem::Specification.new do |spec|
   
   spec.add_dependency 'activesupport'
   spec.add_dependency 'json'
+  spec.add_dependency 'rvk'
   
   spec.files = FileList[
     'bin/twitter2vk_reposter',
