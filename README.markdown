@@ -46,7 +46,7 @@ Config is a YAML files with options:
   `:user_to_url` will replace user name to his Twitter link.
 * `last_message` – file to contain ID of last reposted message.
 
-## Russian
+## По-русски
 
 Автоматический скрипт для публикации статусов Twitter’а во В Контакте. Так же
 в отдельном пакете есть консольная утилита для создания настроек и добавления
