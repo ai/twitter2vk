@@ -1,3 +1,9 @@
+== 0.3 (Суп)
+* Repost retweets.
+* Add last format, which will be add to status after trimmed text.
+* Add Twitter OAuth authentication.
+* Use rvk gem to post status to VK.
+
 == 0.2.6 (Йорурт)
 * Fix for Ruby Enterprise Edition.
 
