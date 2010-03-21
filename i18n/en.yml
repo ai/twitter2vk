@@ -3,7 +3,7 @@ vk:
   email: 'VK e-mail: '
   password: 'VK password: '
   error: 'Error: VK e-mail or password is incorrect.'
-twitter: 'Twitter name: '
+twitter: "Open in browser %1\nAnd enter the number they give you: "
 config: 'Config path: '
 update_error: Overwrite config, because previous version can be loaded.
 last_message: 'File with last message ID: '

@@ -6,6 +6,8 @@ require 'highline/import'
 require 'r18n-desktop'
 require 'active_support'
 require 'rvk'
+require 'oauth'
+require 'twitter_oauth'
 
 require 'fileutils'
 require 'net/http'
@@ -37,21 +39,38 @@ rescue Vkontakte::VkontakteError => e
   say i18n.vk.error
   exit
 end
-
 config['vk_session'] = vk.session
-config['twitter']    = ask(i18n.twitter)
 
-path = ask(i18n.config) { |q| q.default = "./#{config['twitter']}.yml" }
+KEY = 'lGdk5MXwNqFyQ6glsog0g'
+SECRET = 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE'
+consumer = OAuth::Consumer.new(KEY, SECRET, :site => 'http://twitter.com/')
+request = consumer.get_request_token
+pin = ask(i18n.twitter(request.authorize_url))
+access = request.get_access_token(:oauth_verifier => pin)
+
+config['twitter_token'] = access.token
+config['twitter_secret'] = access.secret
+
+twitter = TwitterOAuth::Client.new(:consumer_key => KEY,
+  :consumer_secret => SECRET, :token => access.token, :secret => access.secret)
+
+path = ask(i18n.config) { |q|
+  q.default = "./#{twitter.info['screen_name']}.yml"
+}
 path = File.expand_path(path)
 
 if File.exists? path
   (config = YAML.load_file(path).merge(config)) rescue puts i18n.update_error
 end
 
-config['exclude'] = ['#novk', :reply] unless config.has_key? 'exclude'
-config['include'] = ['#vk']           unless config.has_key? 'include'
-config['replace'] = []                unless config.has_key? 'replace'
-config['format']  = '%status%'        unless config.has_key? 'format'
+default = {
+  'exclude' => ['#novk', :reply],
+  'include' => ['#vk'],
+  'replace' => [],
+  'format'  => '%status%',
+  'last'    => ''
+}
+config = default.merge(config)
 
 config['last_message'] = ask(i18n.last_message) do |q|
   q.default = "./#{config['twitter']}_last_message"

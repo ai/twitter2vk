@@ -7,6 +7,7 @@ require 'rubygems'
 require 'json'
 require 'active_support'
 require 'rvk'
+require 'twitter_oauth'
 
 require 'yaml'
 require 'open-uri'
@@ -41,9 +42,12 @@ def repost?(text, config)
   true
 end
 
+def link(status)
+  "http://twitter.com/#{status['user']['screen_name']}/status/#{status['id']}"
+end
+
 def format_text(status, format)
-  format.gsub('%status%', status['text']).gsub('%url%',
-    "twitter.com/#{status['user']['screen_name']}/#{status['id']}").mb_chars
+  format.gsub('%status%', status['text']).gsub('%url%', link(status)).mb_chars
 end
 
 def trim_text(text, length)
@@ -59,7 +63,9 @@ def format_status(status, config)
   
   text = format_text(status, config['format'] || '%status%')
   Array(config['replace']).each do |replace|
-    replace = [/@([a-zA-Z0-9_]+)/, 'twitter.com/\\1'] if :user_to_url == replace
+    if :user_to_url == replace
+      replace = [/@([a-zA-Z0-9_]+)/, 'http//twitter.com/\\1']
+    end
     text.gsub!(replace[0], replace[1])
   end
   
@@ -72,20 +78,20 @@ last_message = if File.exists? config['last_message']
   File.read(config['last_message']).strip
 end
 
-
-query = last_message ? "since_id=#{last_message}" : 'count=1'
-request = open('http://twitter.com/statuses/user_timeline/' +
-               "#{config['twitter']}.json?#{query}")
-statuses = JSON.parse(request.read.to_s)
+twitter = TwitterOAuth::Client.new(:consumer_key => 'lGdk5MXwNqFyQ6glsog0g',
+  :consumer_secret => 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE',
+  :token => config['twitter_token'], :secret => config['twitter_secret'])
+statuses = twitter.user_timeline(
+  last_message ? { :since_id => last_message } : { :count => 1})
 
 unless statuses.empty?
   vk = Vkontakte::User.new(config['vk_session'])
   
   last_message_id = nil
   statuses.reverse.each do |status|
+    next unless repost? status['text'], config
     text = format_status(status, config)
     last_message_id = status['id']
-    next unless repost? text, config
     vk.set_status(text)
     break
   end
