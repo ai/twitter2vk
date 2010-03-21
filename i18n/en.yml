@@ -12,5 +12,6 @@ cron: Install cron task?
 success:
   cron: Config and cron task are created.
   print:
-    Config are created. To check your twitter automatically print `crontab -e`
-    and add `%1`
+    "Config are created.
+    \nTo check your twitter automatically print `crontab -e` and add:
+    \n%1"

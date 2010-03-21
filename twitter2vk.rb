@@ -106,4 +106,3 @@ if agree(i18n.cron) { |q| q.default = 'yes' }
 else
   say i18n.success.print(task)
 end
-
