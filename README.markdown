@@ -1,57 +1,8 @@
 # twitter2vk
 
-## English
-Automatic script to repost statuses from Twitter to VK. It also contain in
-separated package CLI tool to create config and add cron task.
-
-Warning: config contain session ID for VK, which can be used to get full access.
-Make sure that outsiders don’t have access to this file.
-
-By default, reply and statuses with #novk willn’t be reposted to VK (but you may
-use #vk to repost any status).
-
-You may install on server only twitter2vk_reposter package and create config
-on home computer (don’t remember to add cron task). Or you can uninstall
-twitter2vk after you create config.
-
-You can follow author @andrey_sitnik to receive last updates info.
-
-### Install
-1. Install Ruby and Rubygems. For example, on Ubuntu:
-   
-        sudo apt-get install rubygems
-   
-2. Install twitter2vk gem:
-   
-        sudo gem install twitter2vk
-   
-3. Run master to create config and add crom task:
-   
-        twitter2vk
-
-### Config
-Config is a YAML files with options:
-
-* `vk_session` – session ID to access to VK.
-* `twitter_token`, `twitter_secret` — data to access to Twitter by OAuth.
-* `exclude` – list of text or regexp patterns to exclude statuses from your VK.
-  Code `:reply` will exclude your replies to another users, `:retweet` will
-  exclude retweets by you.
-* `include` – list of text or regexp patterns to repost excluded statuses.
-* `format` – format reposted status. `%status%` will be replaced by status text,
-  `%url%` by status link on Twitter.
-* `last` — text after `format`. If status will be longer that VK allow,
-  `format` will be trim first. So `last` it useful, to set link to Twitter
-  status.
-* `retweet` — format of retweet. `%status%` will be replaced by text,
-  `%author%` will be replace by tweet author.
-* `replace` – list of array with 2 elements to replace text in status. Code
-  `:user_to_url` will replace user name to his Twitter link.
-* `last_message` – file to contain ID of last reposted message.
-
 ## По-русски
 
-Автоматический скрипт для публикации статусов Twitter’а во В Контакте. Так же
+Скрипт для автоматической публикации статусов Twitter’а во В Контакте. Так же
 в отдельном пакете есть консольная утилита для создания настроек и добавления
 задачи в cron.
 
@@ -67,6 +18,11 @@ Config is a YAML files with options:
 
 Вы можете последовать за автором @andrey_sitnik, чтобы получать информацию
 о последних обновлениях.
+
+### Возможности
+- Не хранит пароли в настройках.
+- Поддерживает ретвиты.
+- Имеет гибкие настройки формата статуса и игнорирования статусов.
 
 ### Установка
 1. Установите Ruby и Rubygems. Например, для Ubuntu:
@@ -101,3 +57,57 @@ Config is a YAML files with options:
 * `replace` — список массивов из двух элементов для замены текста в статусе. Код
   `:user_to_url` заменит имена пользователей на ссылку на их Twitter.
 * `last_message` — файл, чтобы хранить ID последнего полученного сообщения.
+
+## English
+Script to automatically repost statuses from Twitter to VK. It also contain in
+separated package CLI tool to create config and add cron task.
+
+Warning: config contain session ID for VK, which can be used to get full access.
+Make sure that outsiders don’t have access to this file.
+
+By default, reply and statuses with #novk willn’t be reposted to VK (but you may
+use #vk to repost any status).
+
+You may install on server only twitter2vk_reposter package and create config
+on home computer (don’t remember to add cron task). Or you can uninstall
+twitter2vk after you create config.
+
+You can follow author @andrey_sitnik to receive last updates info.
+
+### Features
+* Don’t store passwords in config.
+* Retweet support.
+* Flexible status format and ignore rules.
+
+### Install
+1. Install Ruby and Rubygems. For example, on Ubuntu:
+   
+        sudo apt-get install rubygems
+   
+2. Install twitter2vk gem:
+   
+        sudo gem install twitter2vk
+   
+3. Run master to create config and add crom task:
+   
+        twitter2vk
+
+### Config
+Config is a YAML files with options:
+
+* `vk_session` – session ID to access to VK.
+* `twitter_token`, `twitter_secret` — data to access to Twitter by OAuth.
+* `exclude` – list of text or regexp patterns to exclude statuses from your VK.
+  Code `:reply` will exclude your replies to another users, `:retweet` will
+  exclude retweets by you.
+* `include` – list of text or regexp patterns to repost excluded statuses.
+* `format` – format reposted status. `%status%` will be replaced by status text,
+  `%url%` by status link on Twitter.
+* `last` — text after `format`. If status will be longer that VK allow,
+  `format` will be trim first. So `last` it useful, to set link to Twitter
+  status.
+* `retweet` — format of retweet. `%status%` will be replaced by text,
+  `%author%` will be replace by tweet author.
+* `replace` – list of array with 2 elements to replace text in status. Code
+  `:user_to_url` will replace user name to his Twitter link.
+* `last_message` – file to contain ID of last reposted message.
