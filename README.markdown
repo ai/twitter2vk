@@ -33,15 +33,18 @@ You can follow author @andrey_sitnik to receive last updates info.
 Config is a YAML files with options:
 
 * `vk_session` – session ID to access to VK.
-* `twitter` – your Twitter login.
+* `twitter_token`, `twitter_secret` — data to access to Twitter by OAuth.
 * `exclude` – list of text or regexp patterns to exclude statuses from your VK.
-  Code `:reply` will exclude your replies to another Twitter users.
+  Code `:reply` will exclude your replies to another users, `:retweet` will
+  exclude retweets by you.
 * `include` – list of text or regexp patterns to repost excluded statuses.
 * `format` – format reposted status. `%status%` will be replaced by status text,
   `%url%` by status link on Twitter.
 * `last` — text after `format`. If status will be longer that VK allow,
   `format` will be trim first. So `last` it useful, to set link to Twitter
   status.
+* `retweet` — format of retweet. `%status%` will be replaced by text,
+  `%author%` will be replace by tweet author.
 * `replace` – list of array with 2 elements to replace text in status. Code
   `:user_to_url` will replace user name to his Twitter link.
 * `last_message` – file to contain ID of last reposted message.
@@ -82,16 +85,19 @@ Config is a YAML files with options:
 Настройки хранятся в YAML файле с полями:
 
 * `vk_session` – ID сессии для доступка к В Контакте.
-* `twitter` — логин от вашего Twitter’а.
+* `twitter_token`, `twitter_secret` — данные для доступа к Twitter’у через
+  OAuth.
 * `exclude` — список слов или regexp’ов статусов, которые не нужно публиковать
-  во В Контакте. Код `:reply` исключ ваши ответы другим пользователя
-  Twitter.
+  во В Контакте. Код `:reply` исключит ваши ответы другим пользователя,
+  `:retweet` — ретвиты от вас.
 * `include` — список слов или regexp’ов для отмены exclude.
-* `format` — вид статуса во В Контакте. `%status%` будет заменен на текст
+* `format` — вид статуса во В Контакте. `%status%` будет заменён на текст
   статуса, `%url%` — на ссылку на статус в Twitter’е.
 * `last` — текст после `format`. Если статус больше допустимого во В Контакте,
   то первым делом обрезается `format`, поэтому `last` удобен для указания ссылки
-  на статус в Twitter’е.
+  на твит.
+* `retweet` — вид ретвита. `%status%` будет заменён на текст, `%author%` — на
+  автора твита.
 * `replace` — список массивов из двух элементов для замены текста в статусе. Код
   `:user_to_url` заменит имена пользователей на ссылку на их Twitter.
 * `last_message` — файл, чтобы хранить ID последнего полученного сообщения.

@@ -68,7 +68,8 @@ default = {
   'include' => ['#vk'],
   'replace' => [],
   'format'  => '%status%',
-  'last'    => ''
+  'last'    => '',
+  'retweet' => 'RT %author%: %status%'
 }
 config = default.merge(config)
 

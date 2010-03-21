@@ -20,21 +20,22 @@ if ARGV.empty? or '--help' == ARGV.first or '-h' == ARGV.first
   exit
 end
 
-def check(text, pattern)
-  pattern = /^@\w/ if :reply == pattern
+def check(status, pattern)
+  return status.has_key?('retweeted_status') if :retweet == pattern
   
+  pattern = /^@\w/ if :reply == pattern
   if pattern.is_a? String
-    text.index(pattern)
+    status['text'].index(pattern)
   elsif pattern.is_a? Regexp
-    text =~ pattern
+    status['text'] =~ pattern
   end
 end
 
-def repost?(text, config)
+def repost?(status, config)
   Array(config['exclude']).each do |pattern|
-    if check(text, pattern)
+    if check(status, pattern)
       Array(config['include']).each do |pattern|
-        return true if check(text, pattern)
+        return true if check(status, pattern)
       end
       return false
     end
@@ -47,7 +48,9 @@ def link(status)
 end
 
 def format_text(status, format)
-  format.gsub('%status%', status['text']).gsub('%url%', link(status)).mb_chars
+  format.gsub('%status%', status['text']).
+         gsub('%url%', link(status)).
+         gsub('%author%', '@' + status['user']['screen_name']).mb_chars
 end
 
 def trim_text(text, length)
@@ -59,9 +62,13 @@ def trim_text(text, length)
 end
 
 def format_status(status, config)
-  last = trim_text(format_text(status, config['last'] || ''), 159)
+  last = trim_text(format_text(status, config['last']), 159)
   
-  text = format_text(status, config['format'] || '%status%')
+  if status.has_key?('retweeted_status')
+    text = format_text(status['retweeted_status'], config['retweet'])
+  else
+    text = format_text(status, config['format'])
+  end
   Array(config['replace']).each do |replace|
     if :user_to_url == replace
       replace = [/@([a-zA-Z0-9_]+)/, 'http//twitter.com/\\1']
@@ -72,7 +79,12 @@ def format_status(status, config)
   trim_text(text, 160 - last.length).to_s + last.to_s
 end
 
-config = YAML.load_file(ARGV.first)
+default = {
+  'format'  => '%status%',
+  'last'    => '',
+  'retweet' => 'RT %author%: %status%'
+}
+config = default.merge(YAML.load_file(ARGV.first))
 
 last_message = if File.exists? config['last_message']
   File.read(config['last_message']).strip
@@ -81,15 +93,22 @@ end
 twitter = TwitterOAuth::Client.new(:consumer_key => 'lGdk5MXwNqFyQ6glsog0g',
   :consumer_secret => 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE',
   :token => config['twitter_token'], :secret => config['twitter_secret'])
-statuses = twitter.user_timeline(
-  last_message ? { :since_id => last_message } : { :count => 1})
+if last_message
+  query = { :since_id => last_message }
+else
+  query = { :count => 1 }
+end
+statuses = twitter.user_timeline(query) + twitter.retweeted_by_me(query)
+statuses.sort! { |a, b| a['id'] <=> b['id'] }
+
+statuses = [statuses.last] unless last_message
 
 unless statuses.empty?
   vk = Vkontakte::User.new(config['vk_session'])
   
   last_message_id = nil
-  statuses.reverse.each do |status|
-    next unless repost? status['text'], config
+  statuses.each do |status|
+    next unless repost? status, config
     text = format_status(status, config)
     last_message_id = status['id']
     vk.set_status(text)
