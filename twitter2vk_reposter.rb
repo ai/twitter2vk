@@ -41,19 +41,29 @@ def repost?(text, config)
   true
 end
 
+def format_text(status, format)
+  format.gsub('%status%', status['text']).gsub('%url%',
+    "twitter.com/#{status['user']['screen_name']}/#{status['id']}").mb_chars
+end
+
+def trim_text(text, length)
+  if text.length > length
+    text[0...(length - 1)] + '…'
+  else
+    text
+  end
+end
+
 def format_status(status, config)
-  format = config['format'] || '%status%'
-  text = format.gsub('%status%', status['text']).gsub('%url%',
-      "twitter.com/#{status['user']['screen_name']}/#{status['id']}")
+  last = trim_text(format_text(status, config['last'] || ''), 159)
   
+  text = format_text(status, config['format'] || '%status%')
   Array(config['replace']).each do |replace|
     replace = [/@([a-zA-Z0-9_]+)/, 'twitter.com/\\1'] if :user_to_url == replace
     text.gsub!(replace[0], replace[1])
   end
   
-  text = text.mb_chars
-  text = text[0...159] + '…' if text.length > 160
-  text.to_s
+  trim_text(text, 160 - last.length).to_s + last.to_s
 end
 
 config = YAML.load_file(ARGV.first)
