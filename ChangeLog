@@ -1,3 +1,8 @@
+== 0.3.1 (Рис)
+* Installer use log file in cron task.
+* Check required options in reposter.
+* Fix issue on empty last message ID file.
+
 == 0.3 (Суп)
 * Repost retweets.
 * Add last format, which will be add to status after trimmed text.
