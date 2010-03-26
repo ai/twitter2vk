@@ -17,7 +17,7 @@ if ARGV.empty? or '--help' == ARGV.first or '-h' == ARGV.first
   puts 'Usage: twitter2vk_reposter.rb CONFIG'
   puts 'Repost Twitter statuses to VK.com. Call twitter2vk script to create ' +
        'config and add cron task.'
-  exit 1
+  exit 0
 end
 
 def check(status, pattern)
@@ -88,7 +88,8 @@ config = default.merge(YAML.load_file(ARGV.first))
 
 missed = %w{twitter_token twitter_secret last_message vk_session} - config.keys
 if missed
-  puts "Config #{ARGV.first} has't required options: #{missed.join(', ')}."
+  STDERR.puts "Config #{ARGV.first} has't required options: " +
+              "#{missed.join(', ')}."
   exit 1
 end
 

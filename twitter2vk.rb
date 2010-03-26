@@ -54,10 +54,12 @@ config['twitter_secret'] = access.secret
 twitter = TwitterOAuth::Client.new(:consumer_key => KEY,
   :consumer_secret => SECRET, :token => access.token, :secret => access.secret)
 
-path = ask(i18n.config) { |q|
-  q.default = "./#{twitter.info['screen_name']}.yml"
-}
+screen_name = twitter.info['screen_name']
+path = ask(i18n.config) { |q| q.default = "./#{screen_name}.yml" }
 path = File.expand_path(path)
+
+log = ask(i18n.log) { |q| q.default = "./#{screen_name}.log" }
+log = File.expand_path(log)
 
 if File.exists? path
   (config = YAML.load_file(path).merge(config)) rescue puts i18n.update_error
@@ -74,7 +76,7 @@ default = {
 config = default.merge(config)
 
 config['last_message'] = ask(i18n.last_message) do |q|
-  q.default = "./#{config['twitter']}_last_message"
+  q.default = "./#{screen_name}_last_message"
 end
 config['last_message'] = File.expand_path(config['last_message'])
 
@@ -91,7 +93,7 @@ else
   'twitter2vk_reposter'
 end
 
-task = "*/#{period} *  *   *   *      #{reposter} #{path}"
+task = "*/#{period} *  *   *   *      #{reposter} #{path} 2>> #{log}"
 
 if agree(i18n.cron) { |q| q.default = 'yes' }
   tasks = `crontab -l`

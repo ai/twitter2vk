@@ -5,6 +5,7 @@ vk:
   error: 'Error: VK e-mail or password is incorrect.'
 twitter: "Open in browser %1\nAnd enter the number they give you: "
 config: 'Config path: '
+log: 'Log path: '
 update_error: Overwrite config, because previous version can be loaded.
 last_message: 'File with last message ID: '
 period: 'Check period in minutes: '
