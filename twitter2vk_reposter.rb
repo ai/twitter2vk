@@ -89,6 +89,7 @@ config = default.merge(YAML.load_file(ARGV.first))
 last_message = if File.exists? config['last_message']
   File.read(config['last_message']).strip
 end
+last_message = nil unless last_message =~ /^\d/
 
 twitter = TwitterOAuth::Client.new(:consumer_key => 'lGdk5MXwNqFyQ6glsog0g',
   :consumer_secret => 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE',
