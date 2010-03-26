@@ -123,5 +123,7 @@ unless statuses.empty?
     break
   end
   
-  File.open(config['last_message'], 'w') { |io| io << last_message_id }
+  if last_message_id
+    File.open(config['last_message'], 'w') { |io| io << last_message_id }
+  end
 end
