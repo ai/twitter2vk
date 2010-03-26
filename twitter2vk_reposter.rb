@@ -87,7 +87,7 @@ default = {
 config = default.merge(YAML.load_file(ARGV.first))
 
 missed = %w{twitter_token twitter_secret last_message vk_session} - config.keys
-if missed
+unless missed.empty?
   STDERR.puts "Config #{ARGV.first} has't required options: " +
               "#{missed.join(', ')}."
   exit 1
