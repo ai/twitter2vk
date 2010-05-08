@@ -1,3 +1,6 @@
+== 0.3.4 (Борщ)
+* Fix for statuses with <, > and &.
+
 == 0.3.3 (Перец)
 * Write last message ID only if it change.
 

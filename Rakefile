@@ -1,6 +1,6 @@
 require 'rubygems'
 
-PKG_VERSION = '0.3.3'
+PKG_VERSION = '0.3.4'
 
 def common_spec(spec)
   spec.version = PKG_VERSION
@@ -17,6 +17,7 @@ installer_spec = Gem::Specification.new do |spec|
     statuses to VK (В Контакте).
   EOF
   
+  
   spec.add_dependency 'twitter2vk_reposter', "= #{PKG_VERSION}"
   spec.add_dependency 'activesupport'
   spec.add_dependency 'highline'
@@ -25,6 +26,7 @@ installer_spec = Gem::Specification.new do |spec|
   spec.add_dependency 'twitter_oauth'
   spec.add_dependency 'r18n-desktop'
   
+  spec.require_paths = ['']
   spec.files = FileList[
     'bin/twitter2vk',
     'bin/i18n/ru.yml',
@@ -49,6 +51,7 @@ responser_spec = Gem::Specification.new do |spec|
   spec.add_dependency 'rvk'
   spec.add_dependency 'twitter_oauth'
   
+  spec.require_paths = ['']
   spec.files = FileList[
     'bin/twitter2vk_reposter',
     'README.markdown',
