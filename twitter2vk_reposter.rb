@@ -48,7 +48,8 @@ def link(status)
 end
 
 def format_text(status, format)
-  format.gsub('%status%', status['text']).
+  text = status['text'].gsub('&lt;', '<').gsub('&gt;', '>').gsub('&amp;', '&')
+  format.gsub('%status%', text).
          gsub('%url%', link(status)).
          gsub('%author%', '@' + status['user']['screen_name']).mb_chars
 end
