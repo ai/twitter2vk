@@ -4,7 +4,6 @@
 $KCODE = 'u'
 
 require 'rubygems'
-require 'json'
 require 'active_support'
 require 'rvk'
 require 'twitter_oauth'
