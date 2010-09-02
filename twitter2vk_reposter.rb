@@ -61,8 +61,10 @@ def trim_text(text, length)
   end
 end
 
+VK_MAX_STATUS = 255
+
 def format_status(status, config)
-  last = trim_text(format_text(status, config['last']), 159)
+  last = trim_text(format_text(status, config['last']), VK_MAX_STATUS)
   
   if status.has_key?('retweeted_status')
     text = format_text(status['retweeted_status'], config['retweet'])
@@ -76,7 +78,7 @@ def format_status(status, config)
     text.gsub!(replace[0], replace[1])
   end
   
-  trim_text(text, 160 - last.length).to_s + last.to_s
+  trim_text(text, VK_MAX_STATUS - last.length).to_s + last.to_s
 end
 
 default = {
