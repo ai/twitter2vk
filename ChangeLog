@@ -1,3 +1,7 @@
+== 0.3.4 (Харчо)
+* Increase max length of VK status for new API.
+* Don’t raise error, when Twitter is over capacity.
+
 == 0.3.4 (Борщ)
 * Fix for statuses with <, > and &.
 
