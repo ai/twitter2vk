@@ -100,16 +100,20 @@ last_message = if File.exists? config['last_message']
 end
 last_message = nil unless last_message =~ /^\d/
 
-twitter = TwitterOAuth::Client.new(:consumer_key => 'lGdk5MXwNqFyQ6glsog0g',
-  :consumer_secret => 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE',
-  :token => config['twitter_token'], :secret => config['twitter_secret'])
-if last_message
-  query = { :since_id => last_message }
-else
-  query = { :count => 1 }
+begin
+  twitter = TwitterOAuth::Client.new(:consumer_key => 'lGdk5MXwNqFyQ6glsog0g',
+    :consumer_secret => 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE',
+    :token => config['twitter_token'], :secret => config['twitter_secret'])
+  if last_message
+    query = { :since_id => last_message }
+  else
+    query = { :count => 1 }
+  end
+  statuses = twitter.user_timeline(query) + twitter.retweeted_by_me(query)
+  statuses.sort! { |a, b| a['id'] <=> b['id'] }
+rescue JSON::ParserError => e
+  exit 1
 end
-statuses = twitter.user_timeline(query) + twitter.retweeted_by_me(query)
-statuses.sort! { |a, b| a['id'] <=> b['id'] }
 
 statuses = [statuses.last] unless last_message
 
