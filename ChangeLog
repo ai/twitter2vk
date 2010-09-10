@@ -1,4 +1,7 @@
-== 0.3.4 (Харчо)
+== 0.3.6 (Пельмени)
+* Fix support for ActiveSupport from Rails 3.
+
+== 0.3.5 (Харчо)
 * Increase max length of VK status for new API.
 * Don’t raise error, when Twitter is over capacity.
 
