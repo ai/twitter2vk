@@ -5,6 +5,7 @@ $KCODE = 'u'
 
 require 'rubygems'
 require 'active_support'
+require 'active_support/core_ext/string/multibyte'
 require 'rvk'
 require 'twitter_oauth'
 
