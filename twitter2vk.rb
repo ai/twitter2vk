@@ -85,7 +85,7 @@ FileUtils.chmod 0700, path
 
 period = ask(i18n.period) { |q| q.default = 5 }
 
-reposter = if File.expand_path(__FILE__).starts_with? Gem.dir
+reposter = if File.expand_path(__FILE__).start_with? Gem.dir
   File.join(Gem.bindir, 'twitter2vk_reposter')
 elsif File.exists? File.join(File.dirname(__FILE__), 'twitter2vk_reposter')
   File.expand_path File.join(File.dirname(__FILE__), 'twitter2vk_reposter.rb')

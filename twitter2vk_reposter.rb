@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Check new Twitter statuses and repost it to VK.
 
-$KCODE = 'u'
+$KCODE = 'u' if '1.8.' == RUBY_VERSION[0..3]
 
 require 'rubygems'
 require 'active_support'
