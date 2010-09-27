@@ -1,3 +1,6 @@
+== 0.3.7 (Рассольник)
+* Add Ruby 1.9 support.
+
 == 0.3.6 (Пельмени)
 * Fix support for ActiveSupport from Rails 3.
 
