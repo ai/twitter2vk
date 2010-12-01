@@ -71,7 +71,7 @@ default = {
   'replace' => [],
   'format'  => '%status%',
   'last'    => '',
-  'retweet' => 'RT %author%: %status%'
+  'retweet' => 'RT %author%: «%status%»'
 }
 config = default.merge(config)
 
