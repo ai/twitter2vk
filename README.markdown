@@ -16,8 +16,9 @@
 настройки на домашнем компьютере (не забудьте добавить задание cron). Или можете
 удалить пакет twitter2vk, после настройки.
 
-Вы можете последовать за автором @andrey_sitnik, чтобы получать информацию
-о последних обновлениях.
+Вы можете последовать за автором http://twitter.com/andrey_sitnik, чтобы
+получать информацию о последних обновлениях. По всем вопросам можно писать на
+andrey@sitnik.ru.
 
 Подробная статья — http://habrahabr.ru/blogs/twitter/88386/ .
 
@@ -74,7 +75,8 @@ You may install on server only twitter2vk_reposter package and create config
 on home computer (don’t remember to add cron task). Or you can uninstall
 twitter2vk after you create config.
 
-You can follow author @andrey_sitnik to receive last updates info.
+You can follow author http://twitter.com/andrey_sitnik to receive last updates
+info. You can ask me any questions by e-mail: andrey@sitnik.ru.
 
 ### Features
 * Don’t store passwords in config.
