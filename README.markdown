@@ -29,7 +29,7 @@
 ### Установка
 1. Установите Ruby и Rubygems. Например, для Ubuntu:
    
-        sudo apt-get install rubygems
+        sudo apt-get install rubygems build-essential
    
 2. Установите gem twitter2vk:
    
@@ -84,7 +84,7 @@ You can follow author @andrey_sitnik to receive last updates info.
 ### Install
 1. Install Ruby and Rubygems. For example, on Ubuntu:
    
-        sudo apt-get install rubygems
+        sudo apt-get install rubygems build-essential
    
 2. Install twitter2vk gem:
    
