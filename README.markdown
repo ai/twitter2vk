@@ -48,7 +48,8 @@
   OAuth.
 * `exclude` — список слов или regexp’ов статусов, которые не нужно публиковать
   во В Контакте. Код `:reply` исключит ваши ответы другим пользователя,
-  `:retweet` — ретвиты от вас.
+  `:retweet` — ретвиты от вас, `:all` — все сообщения (имеет смысл, если
+  комбинировать с правилами из `include`).
 * `include` — список слов или regexp’ов для отмены exclude.
 * `format` — вид статуса во В Контакте. `%status%` будет заменён на текст
   статуса, `%url%` — на ссылку на статус в Twitter’е.
@@ -104,7 +105,8 @@ Config is a YAML files with options:
 * `twitter_token`, `twitter_secret` — data to access to Twitter by OAuth.
 * `exclude` – list of text or regexp patterns to exclude statuses from your VK.
   Code `:reply` will exclude your replies to another users, `:retweet` will
-  exclude retweets by you.
+  exclude retweets by you, `:all` will exclude all message (make sense with
+  `include` rules).
 * `include` – list of text or regexp patterns to repost excluded statuses.
 * `format` – format reposted status. `%status%` will be replaced by status text,
   `%url%` by status link on Twitter.

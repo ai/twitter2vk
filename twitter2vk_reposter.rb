@@ -23,6 +23,7 @@ end
 
 def check(status, pattern)
   return status.has_key?('retweeted_status') if :retweet == pattern
+  return true if :all == pattern
   
   pattern = /^@\w/ if :reply == pattern
   if pattern.is_a? String
