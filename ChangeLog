@@ -1,3 +1,8 @@
+== 0.3.8 (Фунчоза)
+* Add :all code to exclude\include options.
+* Add quotes to default RT format.
+* Fix documentation.
+
 == 0.3.7 (Рассольник)
 * Add Ruby 1.9 support.
 
