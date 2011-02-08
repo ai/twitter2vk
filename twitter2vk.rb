@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 # Console tool to create new config and cron task.
 
 require 'rubygems'
