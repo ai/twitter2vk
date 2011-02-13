@@ -39,6 +39,12 @@
 3. Запустите мастер, чтобы создать настройки и добавить задание к cron:
    
         twitter2vk
+   
+4. Если ваш сервер находиться не в России, вам нужно один раз вручную войти во
+   В Контакте с сервера (чтобы подтвердить себя с помощью номера телефона).
+   Например через консольный браузер:
+   
+        www-browser vkontakte.ru
 
 ### Настройки
 Настройки хранятся в YAML файле с полями:
@@ -97,6 +103,12 @@ to receive last updates info. You can ask me any questions by e-mail:
 3. Run master to create config and add crom task:
    
         twitter2vk
+   
+4. If your server isn’t located in Russia or in country, where you living,
+   you need to once sign in to VK from your server (for example).
+   For example, by console browser:
+   
+        www-browser vk.com
 
 ### Config
 Config is a YAML files with options:
