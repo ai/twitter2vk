@@ -42,14 +42,17 @@ rescue Vkontakte::VkontakteError => e
 end
 config['vk_session'] = vk.session
 
-KEY = 'lGdk5MXwNqFyQ6glsog0g'
-SECRET = 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE'
+# TODO. Install twitter2vk by web-service to hide API keys.
+say i18n.twitter_oauth.create('https://dev.twitter.com/apps/new')
+KEY    = ask(i18n.twitter_oauth.key)
+SECRET = ask(i18n.twitter_oauth.secret)
+
 consumer = OAuth::Consumer.new(KEY, SECRET, :site => 'http://twitter.com/')
 request = consumer.get_request_token
 pin = ask(i18n.twitter(request.authorize_url))
 access = request.get_access_token(:oauth_verifier => pin)
 
-config['twitter_token'] = access.token
+config['twitter_token']  = access.token
 config['twitter_secret'] = access.secret
 
 twitter = TwitterOAuth::Client.new(:consumer_key => KEY,

@@ -3,6 +3,10 @@ vk:
   email: 'VK e-mail: '
   password: 'VK password: '
   error: 'Error: VK e-mail or password is incorrect.'
+twitter_oauth:
+  create: Register new Twitter app %1
+  key: 'Consumer key: '
+  secret: 'Consumer secret: '
 twitter: "Open in browser %1\nAnd enter the number they give you: "
 config: 'Config path: '
 log: 'Log path: '
