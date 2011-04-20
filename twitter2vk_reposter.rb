@@ -129,7 +129,15 @@ begin
   else
     query = { :count => 1 }
   end
-  statuses = twitter.user_timeline(query) + twitter.retweeted_by_me(query)
+  tweets   = twitter.user_timeline(query)
+  retweets = twitter.retweeted_by_me(query)
+  [tweets, retweets].each do |array|
+    unless array.is_a? Array
+      STDERR.puts 'Wrong answer from Twitter: ' + array.inspect
+      exit 1
+    end
+  end
+  statuses = tweets + retweets
   statuses.sort! { |a, b| a['id'] <=> b['id'] }
 rescue JSON::ParserError => e
   exit 1
