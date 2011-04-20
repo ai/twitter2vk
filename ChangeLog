@@ -1,3 +1,8 @@
+== 0.3.9 (Мармелад)
+* Remove Twitter OAuth consumer key and secret from sources. Twitter policy deny
+  open API keys in sources, so now you must create your own Twitter app to use
+  your own consumer key and secret.
+
 == 0.3.8.1 (Горошек)
 * Fix twitter2vk script with Ruby 1.9.
 
