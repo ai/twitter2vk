@@ -42,12 +42,13 @@ rescue Vkontakte::VkontakteError => e
 end
 config['vk_session'] = vk.session
 
-# TODO. Install twitter2vk by web-service to hide API keys.
 say i18n.twitter_oauth.create('https://dev.twitter.com/apps/new')
-KEY    = ask(i18n.twitter_oauth.key)
-SECRET = ask(i18n.twitter_oauth.secret)
+config['twitter_consumer_key']    = ask(i18n.twitter_oauth.key)
+config['twitter_consumer_secret'] = ask(i18n.twitter_oauth.secret)
 
-consumer = OAuth::Consumer.new(KEY, SECRET, :site => 'http://twitter.com/')
+consumer = OAuth::Consumer.new(config['twitter_consumer_key'],
+                               config['twitter_consumer_secret'],
+                               :site => 'http://twitter.com/')
 request = consumer.get_request_token
 pin = ask(i18n.twitter(request.authorize_url))
 access = request.get_access_token(:oauth_verifier => pin)
@@ -55,8 +56,11 @@ access = request.get_access_token(:oauth_verifier => pin)
 config['twitter_token']  = access.token
 config['twitter_secret'] = access.secret
 
-twitter = TwitterOAuth::Client.new(:consumer_key => KEY,
-  :consumer_secret => SECRET, :token => access.token, :secret => access.secret)
+twitter = TwitterOAuth::Client.new(
+  :consumer_key    => config['twitter_consumer_key'],
+  :consumer_secret => config['twitter_consumer_secret'],
+  :token           => access.token,
+  :secret          => access.secret)
 
 screen_name = twitter.info['screen_name']
 path = ask(i18n.config) { |q| q.default = "./#{screen_name}.yml" }

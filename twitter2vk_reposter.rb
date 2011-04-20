@@ -104,9 +104,11 @@ end
 last_message = nil unless last_message =~ /^\d/
 
 begin
-  twitter = TwitterOAuth::Client.new(:consumer_key => 'lGdk5MXwNqFyQ6glsog0g',
-    :consumer_secret => 'jHfpLGY11clNSh9M0Fqnjl7fzqeHwrKSWTBo4i8TUcE',
-    :token => config['twitter_token'], :secret => config['twitter_secret'])
+  twitter = TwitterOAuth::Client.new(
+    :consumer_key    => config['twitter_consumer_key'],
+    :consumer_secret => config['twitter_consumer_secret'],
+    :token           => config['twitter_token'],
+    :secret          => config['twitter_secret'])
   if last_message
     query = { :since_id => last_message }
   else
