@@ -14,10 +14,25 @@ require 'yaml'
 require 'open-uri'
 require 'net/http'
 
-if ARGV.empty? or '--help' == ARGV.first or '-h' == ARGV.first
-  puts 'Usage: twitter2vk_reposter.rb CONFIG'
+help = false
+debug = false
+config_path = nil
+ARGV.each do |arg|
+  if '--help' == arg or '-h' == arg
+    help = true
+  elsif '--debug' == arg
+    debug = true
+  else
+    config_path = arg
+  end
+end
+
+if help or config_path.nil?
+  puts 'Usage: twitter2vk_reposter.rb [OPTION] CONFIG'
   puts 'Repost Twitter statuses to VK.com. Call twitter2vk script to create ' +
        'config and add cron task.'
+  puts 'You can use --debug option to show next message to repost. Program ' +
+       'would not repost it or save it ID in last_message_id file.'
   exit 0
 end
 
@@ -89,7 +104,7 @@ default = {
   'last'    => '',
   'retweet' => 'RT %author%: %status%'
 }
-config = default.merge(YAML.load_file(ARGV.first))
+config = default.merge(YAML.load_file(config_path))
 
 missed = %w{twitter_token twitter_secret last_message vk_session} - config.keys
 unless missed.empty?
@@ -130,11 +145,17 @@ unless statuses.empty?
     next unless repost? status, config
     text = format_status(status, config)
     last_message_id = status['id']
-    vk.set_status(text)
+    if debug
+      puts "Message to VK:\n#{text}"
+    else
+      vk.set_status(text)
+    end
     break
   end
   
   if last_message_id
-    File.open(config['last_message'], 'w') { |io| io << last_message_id }
+    unless debug
+      File.open(config['last_message'], 'w') { |io| io << last_message_id }
+    end
   end
 end
