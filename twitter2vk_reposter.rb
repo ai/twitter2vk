@@ -2,9 +2,19 @@
 # encoding: utf-8
 # Check new Twitter statuses and repost it to VK.
 
+dir = File.dirname(__FILE__)
+if File.exists? File.join(dir, 'Gemfile')
+  begin
+    require 'rubygems'
+    require 'bundler'
+    require 'bundler/setup'
+  rescue LoadError
+    puts 'Bundler not available. Install it with: gem install bundler'
+  end
+end
+
 $KCODE = 'u' if '1.8.' == RUBY_VERSION[0..3]
 
-require 'rubygems'
 require 'active_support'
 require 'active_support/core_ext/string/multibyte'
 require 'rvk'

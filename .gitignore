@@ -6,3 +6,5 @@ pkg
 *.yml
 !i18n/*
 *_last_message
+
+.bundle

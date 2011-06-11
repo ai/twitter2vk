@@ -5,8 +5,8 @@ PKG_VERSION = '0.4'
 def common_spec(spec)
   spec.version = PKG_VERSION
   spec.summary = 'Atomatic repost Twitter statuses to VK (В Контакте).'
-  spec.author = 'Andrey "A.I." Sitnik'
-  spec.email = 'andrey@sitnik.ru'
+  spec.author  = 'Andrey "A.I." Sitnik'
+  spec.email   = 'andrey@sitnik.ru'
   spec.rubyforge_project = 'twitter2vk'
 end
 

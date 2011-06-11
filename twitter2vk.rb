@@ -2,7 +2,17 @@
 # encoding: utf-8
 # Console tool to create new config and cron task.
 
-require 'rubygems'
+dir = File.dirname(__FILE__)
+if File.exists? File.join(dir, 'Gemfile')
+  begin
+    require 'rubygems'
+    require 'bundler'
+    require 'bundler/setup'
+  rescue LoadError
+    puts 'Bundler not available. Install it with: gem install bundler'
+  end
+end
+
 require 'highline/import'
 require 'r18n-desktop'
 require 'active_support'
