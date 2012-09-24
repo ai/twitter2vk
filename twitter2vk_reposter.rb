@@ -49,7 +49,7 @@ end
 def check(status, pattern)
   return status.has_key?('retweeted_status') if :retweet == pattern
   return true if :all == pattern
-  
+
   pattern = /^@\w/ if :reply == pattern
   if pattern.is_a? String
     status['text'].index(pattern)
@@ -93,7 +93,7 @@ VK_MAX_STATUS = 255
 
 def format_status(status, config)
   last = trim_text(format_text(status, config['last']), VK_MAX_STATUS)
-  
+
   if status.has_key?('retweeted_status')
     text = format_text(status['retweeted_status'], config['retweet'])
   else
@@ -105,7 +105,7 @@ def format_status(status, config)
     end
     text.gsub!(replace[0], replace[1])
   end
-  
+
   trim_text(text, VK_MAX_STATUS - last.length).to_s + last.to_s
 end
 
@@ -157,7 +157,7 @@ statuses = [statuses.last] unless last_message
 
 unless statuses.empty?
   vk = Vkontakte::User.new(config['vk_session'])
-  
+
   last_message_id = nil
   statuses.each do |status|
     next unless repost? status, config
@@ -170,7 +170,7 @@ unless statuses.empty?
     end
     break
   end
-  
+
   if last_message_id
     unless debug
       File.open(config['last_message'], 'w') { |io| io << last_message_id }

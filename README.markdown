@@ -29,21 +29,21 @@
 
 ### Установка
 1. Установите Ruby и Rubygems. Например, для Ubuntu:
-   
+
         sudo apt-get install rubygems build-essential
-   
+
 2. Установите gem twitter2vk:
-   
+
         sudo gem install twitter2vk
-   
+
 3. Запустите мастер, чтобы создать настройки и добавить задание к cron:
-   
+
         twitter2vk
-   
+
 4. Если ваш сервер находиться не в России, вам нужно один раз вручную войти во
    В Контакте с сервера (чтобы подтвердить себя с помощью номера телефона).
    Например через консольный браузер:
-   
+
         www-browser vkontakte.ru
 
 ### Настройки
@@ -93,21 +93,21 @@ to receive last updates info. You can ask me any questions by e-mail:
 
 ### Install
 1. Install Ruby and Rubygems. For example, on Ubuntu:
-   
+
         sudo apt-get install rubygems build-essential
-   
+
 2. Install twitter2vk gem:
-   
+
         sudo gem install twitter2vk
-   
+
 3. Run master to create config and add crom task:
-   
+
         twitter2vk
-   
+
 4. If your server isn’t located in Russia or in country, where you living,
    you need to once sign in to VK from your server (for example).
    For example, by console browser:
-   
+
         www-browser vk.com
 
 ### Config
