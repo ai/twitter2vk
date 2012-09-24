@@ -1,6 +1,9 @@
 # twitter2vk
 
 ## По-русски
+**СКРИПТ БОЛЬШЕ НЕ ПОДДЕРЖИВАЕТСЯ.** API и требования сервисов изменился, такой
+функционал уже надо делать в виде отдельного сервиса, а не личного приложения.
+Скрипт сейчас представляет только историческую ценность.
 
 Скрипт для автоматической публикации статусов Twitter’а во В Контакте. Так же
 в отдельном пакете есть консольная утилита для создания настроек и добавления
@@ -69,6 +72,10 @@
 * `last_message` — файл, чтобы хранить ID последнего полученного сообщения.
 
 ## English
+**SCRIPT DOESN’T SUPPERTED ANYMORE.** Sites API and requirements was changed,
+so this function must be solved by web service, not local script.
+The script is now only of historical value.
+
 Script to automatically repost statuses from Twitter to VK. It also contain in
 separated package CLI tool to create config and add cron task.
 
